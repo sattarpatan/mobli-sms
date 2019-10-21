@@ -1,8 +1,19 @@
-var http = require('http');
+const express = require('express')
+const bodyParser = require('body-parser')
+const app = express()
+const port = 8081
 
-http.createServer(function (req, res) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write(req.url);
-    res.write('Hello World!');
-    res.end();
-}).listen(8080);
+app.use(bodyParser.json())
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+)
+
+app.get('/', (request, response) => {
+    response.json({ info: 'Node.js, Express, and Postgres API' })
+  })
+
+  app.listen(port, () => {
+    console.log(`App running on port ${port}.`)
+  })
